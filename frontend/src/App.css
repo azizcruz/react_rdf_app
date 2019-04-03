@@ -1,0 +1,68 @@
+body {
+    background-color: #6c5ce7;
+    font-family: 'Nunito', sans-serif;
+}
+
+.card {
+    min-height: 100%;
+    background-color: #2d3436;
+    color: #fff;
+}
+
+.card-title {
+    padding: 1.25rem;
+}
+
+.btn-success,
+.btn-primary {
+    background-color: #fd79a8;
+    border-color: #fd79a8;
+}
+
+.btn-danger {
+    background-color: #d63031;
+    border-color: #d63031;
+}
+
+.btn-secondary {
+    background-color: #636e72;
+    border-color: #636e72;
+}
+
+.btn-secondary:hover {
+    background-color: #636e72;
+    border-color: #636e72;
+}
+
+.btn-danger:hover {
+    background-color: #d63031;
+    border-color: #d63031;
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    background-color: #e84393;
+    border-color: #e84393
+}
+
+.btn {
+    font-weight: bold;
+}
+
+.btn:focus {
+    box-shadow: none
+}
+
+.list-group-item:last-child {
+    color: #2d3436;
+    font-weight: bold
+}
+
+.tasks span {
+    color: #2d3436;
+    font-weight: bold
+}
+
+.tasks .done {
+    text-decoration: line-through !important
+}

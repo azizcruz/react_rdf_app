@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+
+<style>
+.done {
+    text-decoration: line-through
+}
+
+</style>
+
+<a href="{% url 'todo:add-todo' %}" class='btn btn-secondary'>Add Todo +</a>
+<div class="d-flex">
+    <div class="row">
+    {% for todo in todos  %}
+        <div class="col-md-6">
+            <div class="card p-3 mt-2">
+                <h3 class="mt-2 mb-2">{{ todo.title }}</h3>
+                <small>created {{ todo.created_on | naturaltime }}</small>
+                <hr>
+                <div class="mt-1 mb-1"></div>
+                {% for task in todo.tasks.all %}
+                    <p> &bull; <span 
+                            class='{% if task.is_done %}done{% endif %} ml-1'>{{ task.task }}</span> 
+                            <a href="{{ task.get_absolute_url }}">
+                            {% if task.is_done %} 
+                                Undone 
+                            {% else  %}
+                                Done
+                            {% endif %}</a> - at {{ task.what_time }}</p>
+                {% endfor %}
+                <div class="mt-1 mb-1"></div>
+                <div class="add-task">
+                <h4>Add Task</h4>
+                    <form action='{% url "todo:add-task" %}' method='post'>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name='todo' value='{{ todo.id }}'>
+                        <button type='submit' class='btn btn-success'>Add Task</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock content %}
