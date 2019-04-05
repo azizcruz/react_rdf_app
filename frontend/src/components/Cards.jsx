@@ -4,6 +4,7 @@ import SingleCard from "./SingleCard";
 import AddTodoModal from "./AddTodoModal.jsx";
 import AddTaskModal from "./AddTaskModal";
 import DeleteTodoModal from "./DeleteTodoModal";
+import LoadSpinner from "./LoadingSpinner";
 export class Cards extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,9 @@ export class Cards extends Component {
           }}
           buttonLabel="Add Todo +"
         />
+        <span>
+          <LoadSpinner />
+        </span>
         {this.state.todos.length > 0 ? (
           <div className="row">
             {this.state.todos.map(todo => (

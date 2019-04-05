@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Badge, Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import validators from "./../validators";
 
 import axious from "axios";
 
@@ -21,14 +22,14 @@ export class DeleteTodoModal extends Component {
 
   performDelete(id) {
     axious
-      .delete(`api/todos/${id}`)
+      .delete(`api/todos/${id}?simpleToken=${validators.get_token()}`)
       .then(res => {
         console.log(res);
         this.toggle();
         this.props.onSubmit();
       })
       .catch(err => {
-        console.log(err);
+        validators.error_message(err.response, "#d63031", null, "delete-error");
       });
   }
 
@@ -44,7 +45,9 @@ export class DeleteTodoModal extends Component {
           className={this.props.className}
         >
           <ModalBody>
-            <h3>Are you sure you want to delete {this.props.title} ?</h3>
+            <h3 id="delete-error">
+              Are you sure you want to delete {this.props.title} ?
+            </h3>
           </ModalBody>
           <ModalFooter>
             <Button

@@ -3,3 +3,8 @@
     buttom: 0;
     left: 0
 } */
+
+.task-input-error {
+    color: red;
+    font-weight: bold
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
+import validators from "./../validators";
 
 export class AddTodoModal extends Component {
   constructor(props) {
@@ -34,13 +35,37 @@ export class AddTodoModal extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const data = this.state.formData;
-    axios.post("/api/todos/", data).then(res => {
-      this.toggle();
-      this.props.onSubmit(this.state.formData);
-    });
-  }
 
-  sendToParent(data) {}
+    let result = validators.not_empty(
+      data,
+      "title",
+      "#d63031",
+      "* Todo name can't be empty.",
+      "todo-title",
+      "task-input-error"
+    );
+
+    if (result === false) {
+      return false;
+    }
+
+    axios
+      .post(`/api/todos/?simpleToken=${validators.get_token()}`, data)
+      .then(res => {
+        this.props.onSubmit(this.state.formData);
+        this.setState({ formData: { title: "" } });
+        this.toggle();
+      })
+      .catch(err => {
+        console.log(err.response.data.message);
+        validators.error_message(
+          err.response,
+          "#d63031",
+          "todo-title",
+          "task-input-error"
+        );
+      });
+  }
 
   render() {
     return (
@@ -61,6 +86,7 @@ export class AddTodoModal extends Component {
                 onChange={this.handleChange}
                 name="title"
               />
+              <div id="task-input-error" className="task-input-error" />
             </ModalBody>
             <ModalFooter>
               <Button color="primary" type="submit">
