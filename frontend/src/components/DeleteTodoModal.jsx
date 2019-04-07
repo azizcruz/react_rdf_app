@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Badge, Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import validators from "./../validators";
+import globalVars from "./../globalVars";
 
 import axious from "axios";
 
@@ -22,9 +23,12 @@ export class DeleteTodoModal extends Component {
 
   performDelete(id) {
     axious
-      .delete(`api/todos/${id}?simpleToken=${validators.get_token()}`)
+      .delete(
+        `${
+          globalVars.BASE_API_URL
+        }/api/todos/${id}?simpleToken=${validators.get_token()}`
+      )
       .then(res => {
-        console.log(res);
         this.toggle();
         this.props.onSubmit();
       })
@@ -45,9 +49,9 @@ export class DeleteTodoModal extends Component {
           className={this.props.className}
         >
           <ModalBody>
-            <h3 id="delete-error">
+            <h4 id="delete-error">
               Are you sure you want to delete {this.props.title} ?
-            </h3>
+            </h4>
           </ModalBody>
           <ModalFooter>
             <Button

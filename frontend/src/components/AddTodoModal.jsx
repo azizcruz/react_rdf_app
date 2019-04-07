@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import validators from "./../validators";
+import globalVars from "./../globalVars";
 
 export class AddTodoModal extends Component {
   constructor(props) {
@@ -50,14 +51,18 @@ export class AddTodoModal extends Component {
     }
 
     axios
-      .post(`/api/todos/?simpleToken=${validators.get_token()}`, data)
+      .post(
+        `${
+          globalVars.BASE_API_URL
+        }/api/todos/?simpleToken=${validators.get_token()}`,
+        data
+      )
       .then(res => {
         this.props.onSubmit(this.state.formData);
         this.setState({ formData: { title: "" } });
         this.toggle();
       })
       .catch(err => {
-        console.log(err.response.data.message);
         validators.error_message(
           err.response,
           "#d63031",

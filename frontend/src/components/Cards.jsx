@@ -5,6 +5,8 @@ import AddTodoModal from "./AddTodoModal.jsx";
 import AddTaskModal from "./AddTaskModal";
 import DeleteTodoModal from "./DeleteTodoModal";
 import LoadSpinner from "./LoadingSpinner";
+import globalVars from "./../globalVars";
+
 export class Cards extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ export class Cards extends Component {
   // Fetch todos from backend
   fetchTodos = () => {
     axios
-      .get("/api/todos/")
+      .get(`${globalVars.BASE_API_URL}/api/todos/`)
       .then(res => {
         this.setState({ todos: res.data });
       })

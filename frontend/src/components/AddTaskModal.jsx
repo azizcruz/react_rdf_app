@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
 import serializer from "form-serialize";
 import validators from "./../validators";
+import globalVars from "./../globalVars";
 export class AddTaskModal extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +40,12 @@ export class AddTaskModal extends Component {
     }
 
     axios
-      .post(`/api/tasks/?simpleToken=${validators.get_token()}`, data)
+      .post(
+        `${
+          globalVars.BASE_API_URL
+        }/api/tasks/?simpleToken=${validators.get_token()}`,
+        data
+      )
       .then(() => {
         this.props.onSubmit();
         this.toggle();

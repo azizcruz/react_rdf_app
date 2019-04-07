@@ -7,13 +7,16 @@ import {
   ListGroupItem,
   Button
 } from "reactstrap";
+import globalVars from "./../globalVars";
 
 import axious from "axios";
 
 export class SingleCard extends Component {
   handleDone = (taskID, action) => {
     axious
-      .patch(`/api/tasks/${taskID}/`, { is_done: action })
+      .patch(`${globalVars.BASE_API_URL}/api/tasks/${taskID}/`, {
+        is_done: action
+      })
       .then(res => this.props.onDone())
       .catch(err => console.log(err));
   };
