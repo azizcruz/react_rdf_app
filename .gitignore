@@ -8,7 +8,7 @@ db.sqlite3
 bin
 include
 lib
-
+.netlify
 # dependencies
 node_modules
 .pnp
